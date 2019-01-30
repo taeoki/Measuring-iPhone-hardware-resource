@@ -20,6 +20,10 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your custom message to describe why you need location always goes here!</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your custom message to describe why you need location always goes here!</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
@@ -40,10 +44,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your custom message to describe why you need location always goes here!</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your custom message to describe why you need location always goes here!</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

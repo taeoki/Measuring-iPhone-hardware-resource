@@ -92,7 +92,8 @@ extension LocationViewController: CLLocationManagerDelegate {
     if UIApplication.shared.applicationState == .active {
       mapView.showAnnotations(self.locations, animated: true)
     } else {
-      print("App is backgrounded. New location is %@", mostRecentLocation)
+      //print("App is backgrounded. New location is %@", mostRecentLocation)
+      print("백그라운드에서 gps를 통해 성능을 측정할 수 있을까?")
     }
   }
   
