@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2019 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -26,19 +26,21 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import UIKit
+#ifndef SystemMonitor_h
+#define SystemMonitor_h
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+typedef struct {
+  unsigned int system;
+  unsigned int user;
+  unsigned int nice;
+  unsigned int idle;
+  unsigned int total;
+} CPUUsage;
 
-class LocationViewController: UIViewController {
- 
-  @IBAction func testButton(_ sender: Any) {
-    var testString = UserDefaults.standard.object(forKey:"DATA" )
-    
-    print(testString)
-  }
-  
-}
-
-
-
-
+@interface SystemMonitor: NSObject
++ (CPUUsage)cpuUsage;
++ (CGFloat)appCpuUsage;
+@end
+#endif /* SystemMonitor_h */

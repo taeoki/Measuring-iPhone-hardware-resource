@@ -15,6 +15,7 @@
 		AF38E21220F3EA4500BB6019 /* WhateverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38E21120F3EA4500BB6019 /* WhateverViewController.swift */; };
 		AF38E21420F3EA6A00BB6019 /* LocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38E21320F3EA6A00BB6019 /* LocationViewController.swift */; };
 		AF38E21620F3EA8500BB6019 /* AudioViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF38E21520F3EA8500BB6019 /* AudioViewController.swift */; };
+		CE2F11A32201A40E00EAD51F /* SystemMonitor.m in Sources */ = {isa = PBXBuildFile; fileRef = CE2F11A22201A40E00EAD51F /* SystemMonitor.m */; };
 		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
 		D2A5F20B1F4A9144005CD714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F20A1F4A9144005CD714 /* Assets.xcassets */; };
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
@@ -29,6 +30,9 @@
 		AF38E21120F3EA4500BB6019 /* WhateverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhateverViewController.swift; sourceTree = "<group>"; };
 		AF38E21320F3EA6A00BB6019 /* LocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationViewController.swift; sourceTree = "<group>"; };
 		AF38E21520F3EA8500BB6019 /* AudioViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioViewController.swift; sourceTree = "<group>"; };
+		CE2F11A02201A40D00EAD51F /* TheBackgrounder-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TheBackgrounder-Bridging-Header.h"; sourceTree = "<group>"; };
+		CE2F11A12201A40E00EAD51F /* SystemMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemMonitor.h; sourceTree = "<group>"; };
+		CE2F11A22201A40E00EAD51F /* SystemMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SystemMonitor.m; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* TheBackgrounder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBackgrounder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,6 +92,9 @@
 				5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */,
 				D2A5F20F1F4A9144005CD714 /* Info.plist */,
 				AF38E20E20F3E92D00BB6019 /* Supporting Files */,
+				CE2F11A12201A40E00EAD51F /* SystemMonitor.h */,
+				CE2F11A22201A40E00EAD51F /* SystemMonitor.m */,
+				CE2F11A02201A40D00EAD51F /* TheBackgrounder-Bridging-Header.h */,
 			);
 			path = TheBackgrounder;
 			sourceTree = "<group>";
@@ -124,7 +131,7 @@
 				TargetAttributes = {
 					D2A5F1FF1F4A9144005CD714 = {
 						CreatedOnToolsVersion = 9.0;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1010;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -177,6 +184,7 @@
 				AF38E21020F3EA2900BB6019 /* FetchViewController.swift in Sources */,
 				AF38E21420F3EA6A00BB6019 /* LocationViewController.swift in Sources */,
 				AF38E21620F3EA8500BB6019 /* AudioViewController.swift in Sources */,
+				CE2F11A32201A40E00EAD51F /* SystemMonitor.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -315,6 +323,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.taeok.tmeh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheBackgrounder/TheBackgrounder-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -331,6 +340,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.taeok.tmeh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TheBackgrounder/TheBackgrounder-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

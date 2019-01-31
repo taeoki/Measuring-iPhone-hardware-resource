@@ -31,7 +31,10 @@ import AVFoundation
 
 class AudioViewController: UIViewController {
   
+  private var measureBool:Bool = false
   private var count = 0
+  private var cpuData:String = ""
+  private var memoryData:String = ""
   
   @IBOutlet var songLabel: UILabel!
   @IBOutlet var timeLabel: UILabel!
@@ -45,8 +48,22 @@ class AudioViewController: UIViewController {
     }
   }()
   
+  @objc func appMovedToBackground() {
+    print("App moved to background")
+  }
+  
+  @objc func appMovedToForeground() {
+    print("App moved to ForeGround")
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    
+    let notificationCenter = NotificationCenter.default
+    
+    notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+    notificationCenter.addObserver(self, selector: #selector(appMovedToForeground), name: UIApplication.willEnterForegroundNotification, object: nil)
     
     do {
       try AVAudioSession.sharedInstance().setCategory(
@@ -61,12 +78,37 @@ class AudioViewController: UIViewController {
       guard let self = self else { return }
       let timeString = String(format: "%02.2f", CMTimeGetSeconds(time))
       
+      
       if UIApplication.shared.applicationState == .active {
+        // - foreground mode
         self.timeLabel.text = timeString
       }
       else {
+        // - background mode
         self.count = self.count + 1
-        print("\(self.count): free-\(self.getFreeMemory()) / active-\(self.getActiveMemory()) / in-\(self.getInactiveMemory()) /cpu :\(self.cpuUsage())")
+        
+        let cpuUsage = SystemMonitor.cpuUsage()
+        
+        // total / user / system / idle
+        self.cpuData = self.cpuData+"\n"+String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle)
+        
+        print( String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle) )   // user cpu usage / total cpu usage
+        
+        
+        /*
+          SystemMonitor.cpuUsage() struct
+          .user ( 실제 사용하는 cpu )
+          .system ( 시스템이 사용하는 - 시뮬레이터에서는 잘 측정이 되는데, 실제단말에서는 '0'으로 찍힘 이상하네
+          .idle ( 유휴 CPU )
+          .nice ( 이건 잘 모르겠음, 근데 결과값이 '0'이라 크게 신경안써도 될 듯
+          .total ( user + system + idle + nice )
+         */
+        
+        /*
+         Memory
+         
+         */
+        
       }
     }
   }
@@ -82,18 +124,23 @@ class AudioViewController: UIViewController {
     if keyPath == "currentItem",
       let player = object as? AVPlayer,
       let currentItem = player.currentItem?.asset as? AVURLAsset {
-      songLabel.text = currentItem.url.lastPathComponent
+      //songLabel.text = currentItem.url.lastPathComponent
     }
   }
+  
   
   @IBAction func playPauseAction(_ sender: UIButton) {
     sender.isSelected = !sender.isSelected
     if sender.isSelected {
       player.play()
+      measureBool = true
     } else {
       player.pause()
       self.count = 0
     }
+  }
+  @IBAction func testButton(_ sender: UIButton) {
+    UserDefaults.standard.set(cpuData, forKey:"DATA")
   }
   
   
@@ -157,7 +204,6 @@ class AudioViewController: UIViewController {
     let total = ProcessInfo.processInfo.physicalMemory
     return total / (1_024*1_024)
   }
-  
   
   
   //--------
@@ -227,6 +273,15 @@ class AudioViewController: UIViewController {
     return result
   }
   
+  /*
+  typedef struct {
+  unsigned int system
+  unsigned int user
+  unsigned int nice
+  unsigned int idle
+  unsigned int total
+  } CPUUsage
+  */
   
   
   
