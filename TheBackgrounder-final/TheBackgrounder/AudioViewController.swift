@@ -31,6 +31,10 @@ import AVFoundation
 
 class AudioViewController: UIViewController {
   
+  
+  private var resultData = UserDefaults.standard.object(forKey: "resultData") as? [String] ?? [String]()
+  private var dataNumber = UserDefaults.standard.object(forKey: "dataNumber") as? Int
+  
   private var measureBool:Bool = false
   private var count = 0
   private var cpuData:String = ""
@@ -48,6 +52,8 @@ class AudioViewController: UIViewController {
     }
   }()
   
+  
+  //MARK:- Detect app moved BG/FG
   @objc func appMovedToBackground() {
     print("App moved to background")
   }
@@ -128,23 +134,56 @@ class AudioViewController: UIViewController {
     }
   }
   
-  
+  //MARK:- button Action
   @IBAction func playPauseAction(_ sender: UIButton) {
     sender.isSelected = !sender.isSelected
     if sender.isSelected {
       player.play()
       measureBool = true
+      self.cpuData += getTodayString()
+      
     } else {
       player.pause()
       self.count = 0
     }
   }
   @IBAction func testButton(_ sender: UIButton) {
-    UserDefaults.standard.set(cpuData, forKey:"DATA")
+    
+    print(cpuData)
+    
+    print(dataNumber)
+    print(resultData.count)
+    
+    resultData.insert(self.cpuData, at:0)
+    UserDefaults.standard.set(resultData, forKey:"resultData")
+    dataNumber = resultData.count
+    UserDefaults.standard.set(dataNumber, forKey: "dataNumber")
+    
+    let notificationNme = NSNotification.Name("NotificationIdf")
+    NotificationCenter.default.post(name: notificationNme, object: nil)
+    
+  }
+  
+  func getTodayString() ->String {
+    
+    let date = Date()
+    let calender = Calendar.current
+    let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+    
+    let year = components.year
+    let month = components.month
+    let day = components.day
+    let hour = components.hour
+    let minute = components.minute
+    let second = components.second
+
+    let today_string = String(year!) + "-" + String(month!) + "-" + String(day!) + " " + String(hour!)  + ":" + String(minute!) + ":" +  String(second!)
+    
+    return today_string
+    
   }
   
   
-  //MARK:- 내가 추가한 함수
   
   //MARK:- 가상 메모리 페이지 크기 가져오기
   //- returns: 가상 메모리 페이지 크기 */
@@ -207,7 +246,7 @@ class AudioViewController: UIViewController {
   
   
   //--------
-  
+  /*
    func cpuUsage() -> Double {
     var kr: kern_return_t
     var task_info_count: mach_msg_type_number_t
@@ -272,6 +311,7 @@ class AudioViewController: UIViewController {
     
     return result
   }
+ */
   
   /*
   typedef struct {

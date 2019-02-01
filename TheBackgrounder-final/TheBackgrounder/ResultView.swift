@@ -1,4 +1,4 @@
-/// Copyright (c) 2018 Razeware LLC
+/// Copyright (c) 2019 Razeware LLC
 /// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -28,17 +28,22 @@
 
 import UIKit
 
+class ResultView: UIViewController {
 
-class LocationViewController: UIViewController {
- 
-  @IBAction func testButton(_ sender: Any) {
-    var testString = UserDefaults.standard.object(forKey:"DATA" )
-    
-    print(testString)
-  }
+  @IBOutlet weak var resultTextView: UITextView!
   
+  override func viewDidLoad() {
+        super.viewDidLoad()
+    
+      var resultData = UserDefaults.standard.object(forKey: "resultData") as! [String]
+      var selectNumber = UserDefaults.standard.object(forKey: "selectNumber") as! Int
+    
+      resultTextView.text = resultData[selectNumber]
+
+    }
+    
+  
+
+  
+
 }
-
-
-
-
