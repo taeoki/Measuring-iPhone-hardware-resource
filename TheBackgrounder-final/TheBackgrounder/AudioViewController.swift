@@ -140,7 +140,7 @@ class AudioViewController: UIViewController {
     if sender.isSelected {
       player.play()
       measureBool = true
-      self.cpuData += getTodayString()
+      self.cpuData += getTodayString()+"\n"+"total / user / system / idle"
       
     } else {
       player.pause()
