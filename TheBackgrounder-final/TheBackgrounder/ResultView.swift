@@ -27,11 +27,19 @@
 /// THE SOFTWARE.
 
 import UIKit
+import Charts
 
 class ResultView: UIViewController {
 
   @IBOutlet weak var resultTextView: UITextView!
   
+    @IBOutlet weak var lineChartView: LineChartView!
+    
+    @IBAction func randomButton(_ sender: UIButton) {
+      let count = Int(arc4random_uniform(20) + 3)
+      setChartValues(count)
+    }
+    
   override func viewDidLoad() {
         super.viewDidLoad()
     
@@ -39,9 +47,32 @@ class ResultView: UIViewController {
       var selectNumber = UserDefaults.standard.object(forKey: "selectNumber") as! Int
     
       resultTextView.text = resultData[selectNumber]
+    
+  
+    setChartValues()
 
     }
+  
+  
+  
+  func setChartValues(_ count : Int = 20) {
+    let values = (0..<count).map { (i) -> ChartDataEntry in
+      let val = Double(arc4random_uniform(UInt32(count)) + 3)
+      return ChartDataEntry(x: Double(i), y: val)
+    }
     
+    let set1 = LineChartDataSet(values: values, label: "cpu")
+    let set2 = LineChartDataSet(values: values, label: "mem")
+    
+    let data = LineChartData(dataSets: [set1,set2])
+   
+    
+    self.lineChartView.data = data
+   
+  }
+  
+  
+  
   
 
   

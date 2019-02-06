@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		5C2901831F8F6DE700803663 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */; };
+		782141FD220AC0D7003EAB21 /* SystemMemoryUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782141FC220AC0D7003EAB21 /* SystemMemoryUsage.swift */; };
+		78D23FFE220A9EDA00A168E7 /* SystemDataUsage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78D23FFD220A9EDA00A168E7 /* SystemDataUsage.swift */; };
 		AF38E20B20F3E92A00BB6019 /* IronBacon.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF38E20820F3E92900BB6019 /* IronBacon.mp3 */; };
 		AF38E20C20F3E92A00BB6019 /* FeelinGood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF38E20920F3E92A00BB6019 /* FeelinGood.mp3 */; };
 		AF38E20D20F3E92A00BB6019 /* WhatYouWant.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF38E20A20F3E92A00BB6019 /* WhatYouWant.mp3 */; };
@@ -20,10 +22,14 @@
 		D2A5F2091F4A9144005CD714 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F2071F4A9144005CD714 /* Main.storyboard */; };
 		D2A5F20B1F4A9144005CD714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D2A5F20A1F4A9144005CD714 /* Assets.xcassets */; };
 		D2A5F2211F4A96D0005CD714 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */; };
+		FB8C91A7A2AE222FC57BBE87 /* Pods_TheBackgrounder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACF21DB83C8E2F575455B51A /* Pods_TheBackgrounder.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		5C2901821F8F6DE700803663 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		782141FC220AC0D7003EAB21 /* SystemMemoryUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemMemoryUsage.swift; sourceTree = "<group>"; };
+		78D23FFD220A9EDA00A168E7 /* SystemDataUsage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDataUsage.swift; sourceTree = "<group>"; };
+		ACF21DB83C8E2F575455B51A /* Pods_TheBackgrounder.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TheBackgrounder.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF38E20820F3E92900BB6019 /* IronBacon.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = IronBacon.mp3; sourceTree = "<group>"; };
 		AF38E20920F3E92A00BB6019 /* FeelinGood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FeelinGood.mp3; sourceTree = "<group>"; };
 		AF38E20A20F3E92A00BB6019 /* WhatYouWant.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = WhatYouWant.mp3; sourceTree = "<group>"; };
@@ -35,11 +41,13 @@
 		CE2F11A12201A40E00EAD51F /* SystemMonitor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SystemMonitor.h; sourceTree = "<group>"; };
 		CE2F11A22201A40E00EAD51F /* SystemMonitor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SystemMonitor.m; sourceTree = "<group>"; };
 		CE2F11C22202DCB000EAD51F /* ResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultView.swift; sourceTree = "<group>"; };
+		CFEA8EE6AB9A355E7CD4D21C /* Pods-TheBackgrounder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBackgrounder.release.xcconfig"; path = "Pods/Target Support Files/Pods-TheBackgrounder/Pods-TheBackgrounder.release.xcconfig"; sourceTree = "<group>"; };
 		D2A5F2001F4A9144005CD714 /* TheBackgrounder.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheBackgrounder.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2A5F2081F4A9144005CD714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D2A5F20A1F4A9144005CD714 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D2A5F20F1F4A9144005CD714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D2A5F2201F4A96D0005CD714 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D5C381DC8E03C6955BC1837B /* Pods-TheBackgrounder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TheBackgrounder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TheBackgrounder/Pods-TheBackgrounder.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,12 +55,21 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB8C91A7A2AE222FC57BBE87 /* Pods_TheBackgrounder.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		20EDB2F8B22F1A0B17C9CB82 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACF21DB83C8E2F575455B51A /* Pods_TheBackgrounder.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		AF38E20E20F3E92D00BB6019 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -63,11 +80,22 @@
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		AFB8123BE6B33B4138EBB3E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				D5C381DC8E03C6955BC1837B /* Pods-TheBackgrounder.debug.xcconfig */,
+				CFEA8EE6AB9A355E7CD4D21C /* Pods-TheBackgrounder.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		D2A5F1F71F4A9143005CD714 = {
 			isa = PBXGroup;
 			children = (
 				D2A5F2021F4A9144005CD714 /* TheBackgrounder */,
 				D2A5F2011F4A9144005CD714 /* Products */,
+				AFB8123BE6B33B4138EBB3E8 /* Pods */,
+				20EDB2F8B22F1A0B17C9CB82 /* Frameworks */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -98,6 +126,8 @@
 				CE2F11A12201A40E00EAD51F /* SystemMonitor.h */,
 				CE2F11A22201A40E00EAD51F /* SystemMonitor.m */,
 				CE2F11A02201A40D00EAD51F /* TheBackgrounder-Bridging-Header.h */,
+				78D23FFD220A9EDA00A168E7 /* SystemDataUsage.swift */,
+				782141FC220AC0D7003EAB21 /* SystemMemoryUsage.swift */,
 			);
 			path = TheBackgrounder;
 			sourceTree = "<group>";
@@ -109,9 +139,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D2A5F2121F4A9144005CD714 /* Build configuration list for PBXNativeTarget "TheBackgrounder" */;
 			buildPhases = (
+				A56DD40614A054167E9F72A4 /* [CP] Check Pods Manifest.lock */,
 				D2A5F1FC1F4A9144005CD714 /* Sources */,
 				D2A5F1FD1F4A9144005CD714 /* Frameworks */,
 				D2A5F1FE1F4A9144005CD714 /* Resources */,
+				4183A011D3392BB4AAFD5F05 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -177,6 +209,55 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		4183A011D3392BB4AAFD5F05 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-TheBackgrounder/Pods-TheBackgrounder-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftChart/SwiftChart.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftChart.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TheBackgrounder/Pods-TheBackgrounder-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A56DD40614A054167E9F72A4 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TheBackgrounder-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D2A5F1FC1F4A9144005CD714 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -186,6 +267,8 @@
 				AF38E21220F3EA4500BB6019 /* WhateverViewController.swift in Sources */,
 				AF38E21020F3EA2900BB6019 /* FetchViewController.swift in Sources */,
 				AF38E21420F3EA6A00BB6019 /* ResultViewController.swift in Sources */,
+				782141FD220AC0D7003EAB21 /* SystemMemoryUsage.swift in Sources */,
+				78D23FFE220A9EDA00A168E7 /* SystemDataUsage.swift in Sources */,
 				AF38E21620F3EA8500BB6019 /* AudioViewController.swift in Sources */,
 				CE2F11C32202DCB000EAD51F /* ResultView.swift in Sources */,
 				CE2F11A32201A40E00EAD51F /* SystemMonitor.m in Sources */,
@@ -319,6 +402,7 @@
 		};
 		D2A5F2131F4A9144005CD714 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5C381DC8E03C6955BC1837B /* Pods-TheBackgrounder.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -336,6 +420,7 @@
 		};
 		D2A5F2141F4A9144005CD714 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = CFEA8EE6AB9A355E7CD4D21C /* Pods-TheBackgrounder.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

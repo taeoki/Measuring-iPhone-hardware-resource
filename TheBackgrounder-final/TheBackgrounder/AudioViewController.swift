@@ -37,8 +37,10 @@ class AudioViewController: UIViewController {
   
   private var measureBool:Bool = false
   private var count = 0
+  
   private var cpuData:String = ""
   private var memoryData:String = ""
+  private var networkData:String = ""
   
   @IBOutlet var songLabel: UILabel!
   @IBOutlet var timeLabel: UILabel!
@@ -94,11 +96,31 @@ class AudioViewController: UIViewController {
         self.count = self.count + 1
         
         let cpuUsage = SystemMonitor.cpuUsage()
+        //let memoryUsage =
+        let dataUsage = SystemDataUsage.getDataUsage()
         
+        
+        // Cpu usage data stack
         // total / user / system / idle
         self.cpuData = self.cpuData+"\n"+String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle)
         
-        print( String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle) )   // user cpu usage / total cpu usage
+      
+        // Memory Usage data stack
+        // total / active / inactive / free
+        self.memoryData = self.memoryData+"\n" + String(self.getTotalMemory()) + "\t" + String(self.getActiveMemory()) + "\t" + String(self.getInactiveMemory()) + "\t" + String(self.getFreeMemory())
+        
+        print("totalMemory:\(self.getTotalMemory()) active:\(self.getActiveMemory()) inactive:\(self.getInactiveMemory()) free:\(self.getFreeMemory())")
+       
+        
+        
+        
+        
+        // Network data usage stack
+        // wifiReceived / wifiSent / wirelessWan Received / wirelessWan sent
+        
+        
+        //print( String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle) )   // user cpu usage / total cpu usage
+        
         
         
         /*
@@ -187,6 +209,7 @@ class AudioViewController: UIViewController {
   
   //MARK:- 가상 메모리 페이지 크기 가져오기
   //- returns: 가상 메모리 페이지 크기 */
+  
   fileprivate func getVMPageSize() -> UInt
   {
     var pageSize: vm_size_t = 0
