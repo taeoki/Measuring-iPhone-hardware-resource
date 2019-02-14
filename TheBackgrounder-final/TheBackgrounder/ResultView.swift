@@ -28,16 +28,26 @@
 
 import UIKit
 import Charts
+import MessageUI
 
-class ResultView: UIViewController {
+class ResultView: UIViewController, MFMailComposeViewControllerDelegate,UINavigationControllerDelegate {
 
   @IBOutlet weak var resultTextView: UITextView!
   
     @IBOutlet weak var lineChartView: LineChartView!
     
     @IBAction func randomButton(_ sender: UIButton) {
-      let count = Int(arc4random_uniform(20) + 3)
-      setChartValues(count)
+      
+      
+      
+      let mailComposeViewController = configuredMailComposeViewController()
+      if MFMailComposeViewController.canSendMail() {
+        self.present(mailComposeViewController, animated: true, completion: nil)
+      } else {
+        self.showSendMailErrorAlert()
+      }
+      
+     
     }
     
   override func viewDidLoad() {
@@ -71,7 +81,51 @@ class ResultView: UIViewController {
    
   }
   
+  //MARK:- mail controll
+  func configuredMailComposeViewController() -> MFMailComposeViewController {
+    
+    var resultData = UserDefaults.standard.object(forKey: "resultData") as! [String]
+    var selectNumber = UserDefaults.standard.object(forKey: "selectNumber") as! Int
+    
+    let mailComposerVC = MFMailComposeViewController()
+    mailComposerVC.mailComposeDelegate = self // Extremely important to set the --mailComposeDelegate-- property, NOT the --delegate-- property
+    mailComposerVC.delegate = self
+    mailComposerVC.setToRecipients(["someone@somewhere.com"])
+    mailComposerVC.setSubject("RESULT-"+getTodayString())
+    mailComposerVC.setMessageBody(resultData[selectNumber], isHTML: false)
+    
+    return mailComposerVC
+  }
   
+  func showSendMailErrorAlert() {
+    let sendMailErrorAlert = UIAlertView(title: "Could Not Send Email", message: "Your device could not send e-mail.  Please check e-mail configuration and try again.", delegate: self, cancelButtonTitle: "OK")
+    sendMailErrorAlert.show()
+  }
+  
+  // MARK: MFMailComposeViewControllerDelegate Method
+  func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+    controller.dismiss(animated: true, completion: nil)
+  }
+  
+  
+  func getTodayString() ->String {
+    
+    let date = Date()
+    let calender = Calendar.current
+    let components = calender.dateComponents([.year,.month,.day,.hour,.minute,.second], from: date)
+    
+    let year = components.year
+    let month = components.month
+    let day = components.day
+    let hour = components.hour
+    let minute = components.minute
+    let second = components.second
+    
+    let today_string = String(year!) + "-" + String(month!) + "-" + String(day!) + " " + String(hour!)  + ":" + String(minute!) + ":" +  String(second!)
+    
+    return today_string
+    
+  }
   
   
 

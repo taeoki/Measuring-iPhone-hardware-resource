@@ -32,7 +32,7 @@ import UIKit
 class ResultViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   // Data model: These strings will be the data for the table view cells
-  let animals: [String] = ["Horse", "Cow", "Camel", "Sheep", "Goat"]
+  
  
   
   // cell reuse id (cells that scroll out of view can be reused)

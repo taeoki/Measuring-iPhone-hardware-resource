@@ -37,6 +37,10 @@ class AudioViewController: UIViewController {
   
   private var measureBool:Bool = false
   private var count = 0
+  private var defaultWifiReceived:UInt64 = 0
+  private var defaultWifiSent:UInt64 = 0
+  private var defaultWlanReceived:UInt64 = 0
+  private var defaultWlanSent:UInt64 = 0
   
   private var cpuData:String = ""
   private var memoryData:String = ""
@@ -89,47 +93,53 @@ class AudioViewController: UIViewController {
       
       if UIApplication.shared.applicationState == .active {
         // - foreground mode
-        self.timeLabel.text = timeString
+        self.timeLabel.text = timeString + " (s)"
       }
       else {
         // - background mode
         self.count = self.count + 1
         
         let cpuUsage = SystemMonitor.cpuUsage()
-        //let memoryUsage =
         let dataUsage = SystemDataUsage.getDataUsage()
+        if self.count == 1 {
+          self.defaultWifiReceived = dataUsage.wifiReceived
+          self.defaultWifiSent = dataUsage.wifiSent
+          self.defaultWlanReceived = dataUsage.wirelessWanDataReceived
+          self.defaultWlanSent = dataUsage.wirelessWanDataSent
+        }
         
         
         // Cpu usage data stack
         // total / user / system / idle
         self.cpuData = self.cpuData+"\n"+String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle)
+        //print( String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle) )   // user cpu usage / total cpu usage
         
-      
+        
         // Memory Usage data stack
         // total / active / inactive / free
         self.memoryData = self.memoryData+"\n" + String(self.getTotalMemory()) + "\t" + String(self.getActiveMemory()) + "\t" + String(self.getInactiveMemory()) + "\t" + String(self.getFreeMemory())
-        
-        print("totalMemory:\(self.getTotalMemory()) active:\(self.getActiveMemory()) inactive:\(self.getInactiveMemory()) free:\(self.getFreeMemory())")
-       
-        
-        
+        //print("totalMemory:\(self.getTotalMemory()) active:\(self.getActiveMemory()) inactive:\(self.getInactiveMemory()) free:\(self.getFreeMemory())")
         
         
         // Network data usage stack
         // wifiReceived / wifiSent / wirelessWan Received / wirelessWan sent
+        self.networkData = self.networkData+"\n" + String(dataUsage.wifiReceived-self.defaultWifiReceived) + "\t" + String(dataUsage.wifiSent-self.defaultWifiSent) + "\t" + String(dataUsage.wirelessWanDataReceived - self.defaultWlanReceived) + "\t" + String(dataUsage.wirelessWanDataSent - self.defaultWlanSent)
+        //print("wifiReceived:\(dataUsage.wifiReceived) wifiSent:\(dataUsage.wifiSent) wR:\(dataUsage.wirelessWanDataReceived) wS:\(dataUsage.wirelessWanDataSent)")
+        print(String(dataUsage.wifiReceived-self.defaultWifiReceived)+"\t"+String(dataUsage.wifiSent-self.defaultWifiSent)+"\t"+String(dataUsage.wirelessWanDataReceived - self.defaultWlanReceived)+"\t"+String(dataUsage.wirelessWanDataSent - self.defaultWlanSent))
         
         
-        //print( String(cpuUsage.total)+"\t"+String(cpuUsage.user)+"\t"+String(cpuUsage.system)+"\t"+String(cpuUsage.idle) )   // user cpu usage / total cpu usage
+        
+        
         
         
         
         /*
-          SystemMonitor.cpuUsage() struct
-          .user ( 실제 사용하는 cpu )
-          .system ( 시스템이 사용하는 - 시뮬레이터에서는 잘 측정이 되는데, 실제단말에서는 '0'으로 찍힘 이상하네
-          .idle ( 유휴 CPU )
-          .nice ( 이건 잘 모르겠음, 근데 결과값이 '0'이라 크게 신경안써도 될 듯
-          .total ( user + system + idle + nice )
+         SystemMonitor.cpuUsage() struct
+         .user ( 실제 사용하는 cpu )
+         .system ( 시스템이 사용하는 - 시뮬레이터에서는 잘 측정이 되는데, 실제단말에서는 '0'으로 찍힘 이상하네
+         .idle ( 유휴 CPU )
+         .nice ( 이건 잘 모르겠음, 근데 결과값이 '0'이라 크게 신경안써도 될 듯
+         .total ( user + system + idle + nice )
          */
         
         /*
@@ -162,21 +172,26 @@ class AudioViewController: UIViewController {
     if sender.isSelected {
       player.play()
       measureBool = true
-      self.cpuData += getTodayString()+"\n"+"total / user / system / idle"
+      //self.cpuData += getTodayString()+"\n"+"total / user / system / idle"
       
     } else {
       player.pause()
       self.count = 0
+      self.defaultWlanSent = 0
+      self.defaultWlanReceived = 0
+      self.defaultWifiSent = 0
+      self.defaultWifiReceived = 0
     }
   }
   @IBAction func testButton(_ sender: UIButton) {
     
-    print(cpuData)
+    let sumMsg = getTodayString()+"\nCPU Usage\n"+"total user  system  idle"+cpuData+"\n\n"+"MEMORY Usage\n"+"total  active  inactive  free"+memoryData+"\n\n"+"NETWORK DATA Usage\n"+"wifiReceived  wifiSent  wirelessWan Received  wirelessWan sent"+networkData
+    print(sumMsg)
     
     print(dataNumber)
     print(resultData.count)
     
-    resultData.insert(self.cpuData, at:0)
+    resultData.insert(sumMsg, at:0)
     UserDefaults.standard.set(resultData, forKey:"resultData")
     dataNumber = resultData.count
     UserDefaults.standard.set(dataNumber, forKey: "dataNumber")
@@ -198,7 +213,7 @@ class AudioViewController: UIViewController {
     let hour = components.hour
     let minute = components.minute
     let second = components.second
-
+    
     let today_string = String(year!) + "-" + String(month!) + "-" + String(day!) + " " + String(hour!)  + ":" + String(minute!) + ":" +  String(second!)
     
     return today_string
@@ -271,80 +286,80 @@ class AudioViewController: UIViewController {
   //--------
   /*
    func cpuUsage() -> Double {
-    var kr: kern_return_t
-    var task_info_count: mach_msg_type_number_t
-    
-    task_info_count = mach_msg_type_number_t(TASK_INFO_MAX)
-    var tinfo = [integer_t](repeating: 0, count: Int(task_info_count))
-    
-    kr = task_info(mach_task_self_, task_flavor_t(TASK_BASIC_INFO), &tinfo, &task_info_count)
-    if kr != KERN_SUCCESS {
-      return -1
-    }
-    
-    var thread_list: thread_act_array_t? = UnsafeMutablePointer(mutating: [thread_act_t]())
-    var thread_count: mach_msg_type_number_t = 0
-    defer {
-      if let thread_list = thread_list {
-        vm_deallocate(mach_task_self_, vm_address_t(UnsafePointer(thread_list).pointee), vm_size_t(thread_count))
-      }
-    }
-    
-    kr = task_threads(mach_task_self_, &thread_list, &thread_count)
-    
-    if kr != KERN_SUCCESS {
-      return -1
-    }
-    
-    var tot_cpu: Double = 0
-    
-    if let thread_list = thread_list {
-      
-      for j in 0 ..< Int(thread_count) {
-        var thread_info_count = mach_msg_type_number_t(THREAD_INFO_MAX)
-        var thinfo = [integer_t](repeating: 0, count: Int(thread_info_count))
-        kr = thread_info(thread_list[j], thread_flavor_t(THREAD_BASIC_INFO),
-                         &thinfo, &thread_info_count)
-        if kr != KERN_SUCCESS {
-          return -1
-        }
-        
-        let threadBasicInfo = convertThreadInfoToThreadBasicInfo(thinfo)
-        
-        if threadBasicInfo.flags != TH_FLAGS_IDLE {
-          tot_cpu += (Double(threadBasicInfo.cpu_usage) / Double(TH_USAGE_SCALE)) * 100.0
-        }
-      } // for each thread
-    }
-    
-    return tot_cpu
-  }
-  
+   var kr: kern_return_t
+   var task_info_count: mach_msg_type_number_t
+   
+   task_info_count = mach_msg_type_number_t(TASK_INFO_MAX)
+   var tinfo = [integer_t](repeating: 0, count: Int(task_info_count))
+   
+   kr = task_info(mach_task_self_, task_flavor_t(TASK_BASIC_INFO), &tinfo, &task_info_count)
+   if kr != KERN_SUCCESS {
+   return -1
+   }
+   
+   var thread_list: thread_act_array_t? = UnsafeMutablePointer(mutating: [thread_act_t]())
+   var thread_count: mach_msg_type_number_t = 0
+   defer {
+   if let thread_list = thread_list {
+   vm_deallocate(mach_task_self_, vm_address_t(UnsafePointer(thread_list).pointee), vm_size_t(thread_count))
+   }
+   }
+   
+   kr = task_threads(mach_task_self_, &thread_list, &thread_count)
+   
+   if kr != KERN_SUCCESS {
+   return -1
+   }
+   
+   var tot_cpu: Double = 0
+   
+   if let thread_list = thread_list {
+   
+   for j in 0 ..< Int(thread_count) {
+   var thread_info_count = mach_msg_type_number_t(THREAD_INFO_MAX)
+   var thinfo = [integer_t](repeating: 0, count: Int(thread_info_count))
+   kr = thread_info(thread_list[j], thread_flavor_t(THREAD_BASIC_INFO),
+   &thinfo, &thread_info_count)
+   if kr != KERN_SUCCESS {
+   return -1
+   }
+   
+   let threadBasicInfo = convertThreadInfoToThreadBasicInfo(thinfo)
+   
+   if threadBasicInfo.flags != TH_FLAGS_IDLE {
+   tot_cpu += (Double(threadBasicInfo.cpu_usage) / Double(TH_USAGE_SCALE)) * 100.0
+   }
+   } // for each thread
+   }
+   
+   return tot_cpu
+   }
+   
    func convertThreadInfoToThreadBasicInfo(_ threadInfo: [integer_t]) -> thread_basic_info {
-    var result = thread_basic_info()
-    
-    result.user_time = time_value_t(seconds: threadInfo[0], microseconds: threadInfo[1])
-    result.system_time = time_value_t(seconds: threadInfo[2], microseconds: threadInfo[3])
-    result.cpu_usage = threadInfo[4]
-    result.policy = threadInfo[5]
-    result.run_state = threadInfo[6]
-    result.flags = threadInfo[7]
-    result.suspend_count = threadInfo[8]
-    result.sleep_time = threadInfo[9]
-    
-    return result
-  }
- */
+   var result = thread_basic_info()
+   
+   result.user_time = time_value_t(seconds: threadInfo[0], microseconds: threadInfo[1])
+   result.system_time = time_value_t(seconds: threadInfo[2], microseconds: threadInfo[3])
+   result.cpu_usage = threadInfo[4]
+   result.policy = threadInfo[5]
+   result.run_state = threadInfo[6]
+   result.flags = threadInfo[7]
+   result.suspend_count = threadInfo[8]
+   result.sleep_time = threadInfo[9]
+   
+   return result
+   }
+   */
   
   /*
-  typedef struct {
-  unsigned int system
-  unsigned int user
-  unsigned int nice
-  unsigned int idle
-  unsigned int total
-  } CPUUsage
-  */
+   typedef struct {
+   unsigned int system
+   unsigned int user
+   unsigned int nice
+   unsigned int idle
+   unsigned int total
+   } CPUUsage
+   */
   
   
   
