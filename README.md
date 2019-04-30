@@ -10,6 +10,12 @@ MAC이 없어서 Instrumets를 사용할 수 없을 때,
 아쉬운대로 이 앱이라도 써보자.
 
 
+### 측정가능한 자원 ###
+- CPU 
+- Memory
+- Network ( wirelessLan / Wlan )
+
+
 ### 사용법 ### 
 
 1. Measuring...~ 앱을 iPhone 단말에 설치한다. 
